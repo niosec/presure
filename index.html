@@ -167,6 +167,8 @@
         
         /* Tables General */
         .table-container { 
+            min-height: 200px; /* Altura mínima inicial */
+            height: auto; /* Se expande con el contenido */
             width: 100%;
             overflow-x: auto;
             margin-bottom: 18px; 
@@ -1173,9 +1175,9 @@
             <table id="table-calc">
                 <thead>
                     <tr>
-                        <th style="width:40%">Descripción Insumo</th>
+                        <th style="width:40%">Descripción insu.</th>
                         <th style="width:10%">Und.</th>
-                        <th style="width:15%">Rend.</th>
+                        <th style="width:15%">Rendim.</th>
                         <th style="width:15%">Fact/Div</th>
                         <th style="width:20%">Requerido</th>
                     </tr>
@@ -5827,4 +5829,5 @@ function collectInsumosFromProjectGlobal(type) {
 </script>
 <div id="pwa-toast"></div>
 </body>
+
 </html>
