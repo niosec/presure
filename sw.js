@@ -5,6 +5,7 @@ const urlsToCache = [
   './index.html',
   './manifest.json',
   './icon-512.png',
+  './icon-maskable-512.png'
   // Librerías externas (CDNs) que usa tu app
   'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js',
