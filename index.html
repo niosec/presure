@@ -1026,7 +1026,7 @@
 
 <header>
     <div class="header-title">
-        <img src="icon-192.png" alt="Logo" style="width: 30px; height: 30px; vertical-align: middle;">
+        <img src="icon-192.png" alt="Logo" style="width: 24px; height: 24px; vertical-align: middle;">
         PresuRE v1.2 
         <span id="save-indicator" class="status-dot" title="Estado de guardado"></span>
     </div>
@@ -2363,11 +2363,57 @@ Cantidades: ${s.decimals_qty} decimales`;
         }
     }
 
-    function resetData() {
-        if(confirm("¿Estás seguro de BORRAR TODOS los datos y reiniciar la aplicación? Esta acción no se puede deshacer.")) {
-            localStorage.removeItem(STORAGE_KEY);
-            location.reload();
+    // --- FUNCIÓN DE RESETEO PROFUNDO (STORAGE + COOKIES + CACHE) ---
+    async function resetData() {
+        if (!confirm("⚠️ ATENCIÓN ⚠️\nEsta acción realizará un BORRADO DE FÁBRICA:\n\n1. Eliminará todos los proyectos y bancos de ítems.\n2. Borrará la configuración personal.\n3. Limpiará la Memoria Caché y Cookies de la aplicación.\n\n¿Estás absolutamente seguro de continuar?")) {
+            return;
         }
+
+        showToast("Iniciando limpieza profunda...");
+        
+        // 1. Limpiar Almacenamiento Local y de Sesión
+        try {
+            localStorage.clear(); // Borra todo el LocalStorage del dominio
+            sessionStorage.clear(); // Borra la sesión actual
+        } catch (e) { console.error("Error limpiando Storage", e); }
+
+        // 2. Limpiar Cookies
+        try {
+            document.cookie.split(";").forEach((c) => {
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+        } catch (e) { console.error("Error limpiando Cookies", e); }
+
+        // 3. Limpiar Caché de Archivos (Service Worker Cache)
+        if ('caches' in window) {
+            try {
+                const keys = await caches.keys();
+                await Promise.all(keys.map(key => caches.delete(key)));
+                console.log("Caché de archivos eliminada.");
+            } catch (e) {
+                console.error("Error limpiando Cache Storage", e);
+            }
+        }
+
+        // 4. Desregistrar Service Workers (Para forzar actualización de la PWA)
+        if ('serviceWorker' in navigator) {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (const registration of registrations) {
+                    await registration.unregister();
+                }
+                console.log("Service Workers desregistrados.");
+            } catch (e) {
+                console.error("Error desregistrando SW", e);
+            }
+        }
+
+        showToast("Limpieza completada. Reiniciando sistema...");
+
+        // 5. Recarga forzada desde el servidor (ignora caché)
+        setTimeout(() => {
+            window.location.reload(true);
+        }, 1500);
     }
 
     function showToast(message) {
@@ -4413,7 +4459,7 @@ Cantidades: ${s.decimals_qty} decimales`;
         const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
         const dl = document.createElement('a'); 
         dl.href = s; 
-        dl.download = `proyecto_completo_${new Date().toISOString().slice(0,10)}.json`; 
+        dl.download = `Proy_Save_${new Date().toISOString().slice(0,10)}.json`; 
         dl.click();
         showToast('Proyecto guardado');
     }
@@ -4437,7 +4483,7 @@ Cantidades: ${s.decimals_qty} decimales`;
         const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(budgetData));
         const dl = document.createElement('a'); 
         dl.href = s; 
-        dl.download = `presupuesto_${new Date().toISOString().slice(0,10)}.json`; 
+        dl.download = `PG_${new Date().toISOString().slice(0,10)}.json`; 
         dl.click();
         showToast('Presupuesto exportado (sin BD)');
     }
@@ -5838,6 +5884,3 @@ function collectInsumosFromProjectGlobal(type) {
 <div id="pwa-toast"></div>
 </body>
 </html>
-
-
-
