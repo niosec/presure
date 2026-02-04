@@ -1,5 +1,5 @@
 {
-  "name": "PresuRE v1.1",
+  "name": "PresuRE v1.2",
   "short_name": "PresuRE",
   "start_url": "./index.html",
   "display": "standalone",
@@ -27,3 +27,4 @@
     }
   ]
 }
+
