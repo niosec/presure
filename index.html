@@ -3401,6 +3401,7 @@ Cantidades: ${s.decimals_qty} decimales`;
 
                 let itemFound = false;
                 // Detección de Cabecera de Ítem
+                // Detección de Cabecera de Ítem
                 for(let c=0; c<row.length; c++) {
                     if(row[c] && row[c].toString().toUpperCase().includes("ITEM:")) {
                         // Guardar el ítem anterior si existe
@@ -3409,13 +3410,23 @@ Cantidades: ${s.decimals_qty} decimales`;
                             importedCount++; 
                         }
                         
-                        let name = row[c].toString().split(":")[1] || "";
+                        // --- CORRECCIÓN INICIO ---
+                        // Convertimos a string, separamos por ":", quitamos el primer elemento ("ITEM")
+                        // y volvemos a unir el resto con ":" para no perder descripciones como "Muro: Ladrillo"
+                        let parts = row[c].toString().split(":");
+                        let name = parts.slice(1).join(":"); 
+                        
+                        // Si el nombre estaba vacío en esa celda (ej: celda A1="ITEM:", celda B1="Nombre"), miramos la siguiente
                         if(name.trim() === "" && row[c+1]) name = row[c+1];
+                        // --- CORRECCIÓN FIN ---
                         
                         let unit = "glb";
                         for(let u=c; u<row.length; u++) {
                             if(row[u] && row[u].toString().toUpperCase().includes("UNIDAD:")) {
-                                let unitVal = row[u].toString().split(":")[1] || "";
+                                // Aplicamos la misma lógica de seguridad para la unidad
+                                let uParts = row[u].toString().split(":");
+                                let unitVal = uParts.slice(1).join(":");
+                                
                                 if(unitVal.trim() === "" && row[u+1]) unitVal = row[u+1];
                                 unit = unitVal.trim();
                             }
