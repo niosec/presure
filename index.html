@@ -1269,17 +1269,16 @@
             <h3 style="margin:0; color:var(--accent); font-size:1.3rem;" id="editor-title">Editar APU</h3>
             <div style="display:flex; gap:8px;">
                 <!-- Botones de navegación movidos aquí, al lado del botón Descartar -->
-                <button class="btn btn-warning btn-sm" onclick="navigateEditor(-1)" title="Anterior (Ctrl+←)">
+                <button class="btn btn-warning btn-sm" onclick="navigateEditor(-1)" title="Anterior (Ctrl+←)" style="width: 30px;">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button class="btn btn-warning btn-sm" onclick="navigateEditor(1)" title="Siguiente (Ctrl+→)">
+                <button class="btn btn-warning btn-sm" onclick="navigateEditor(1)" title="Siguiente (Ctrl+→)" style="width: 30px;">
                     <i class="fas fa-chevron-right"></i>
                 </button>
-                <button class="btn btn-secondary" onclick="discardEditor()">
-                    <i class="fas fa-times"></i> Descartar
+
+                <button class="btn btn-secondary" onclick="discardEditor()"> Descartar
                 </button>
-                <button class="btn btn-success" onclick="closeEditor()">
-                    <i class="fas fa-check"></i> Guardar
+                <button class="btn btn-success" onclick="closeEditor()"> Guardar
                 </button>
             </div>
         </div>
@@ -5839,4 +5838,3 @@ function collectInsumosFromProjectGlobal(type) {
 <div id="pwa-toast"></div>
 </body>
 </html>
-
