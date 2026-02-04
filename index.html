@@ -4413,7 +4413,7 @@ Cantidades: ${s.decimals_qty} decimales`;
         const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
         const dl = document.createElement('a'); 
         dl.href = s; 
-        dl.download = `proyecto_guardado_${new Date().toISOString().slice(0,10)}.json`; 
+        dl.download = `proyecto_completo_${new Date().toISOString().slice(0,10)}.json`; 
         dl.click();
         showToast('Proyecto guardado');
     }
@@ -4437,7 +4437,7 @@ Cantidades: ${s.decimals_qty} decimales`;
         const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(budgetData));
         const dl = document.createElement('a'); 
         dl.href = s; 
-        dl.download = `presupuesto_simple_${new Date().toISOString().slice(0,10)}.json`; 
+        dl.download = `presupuesto_${new Date().toISOString().slice(0,10)}.json`; 
         dl.click();
         showToast('Presupuesto exportado (sin BD)');
     }
@@ -5838,3 +5838,4 @@ function collectInsumosFromProjectGlobal(type) {
 <div id="pwa-toast"></div>
 </body>
 </html>
+
