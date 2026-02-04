@@ -1,11 +1,14 @@
-const CACHE_NAME = 'presure-cache';
+const CACHE_NAME = 'presure-cache-v1.1';
 // Lista exacta de recursos extraída de tu código HTML
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
+  './icon-192.png',           // <--- NUEVO
+  './apple-touch-icon.png',   // <--- NUEVO
+  './favicon-32x32.png',      // <--- NUEVO
   './icon-512.png',
-  './icon-maskable-512.png'
+  './icon-maskable-512.png',
   // Librerías externas (CDNs) que usa tu app
   'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js',
