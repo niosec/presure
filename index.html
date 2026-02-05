@@ -24,7 +24,7 @@
     
     <style>
         :root {
-            --primary: #1a365d;
+            --primary: #274b7d;
             --secondary: #2d3748;
             --accent: #3182ce;
             --light: #f7fafc;
@@ -1189,7 +1189,7 @@
                     <tr>
                         <th style="width:40%">Descripción insu.</th>
                         <th style="width:10%">Und.</th>
-                        <th style="width:15%">Rendim.</th>
+                        <th style="width:15%">Cant-Unit.</th>
                         <th style="width:15%">Fact/Div</th>
                         <th style="width:20%">Requerido</th>
                     </tr>
@@ -4472,8 +4472,14 @@ Cantidades: ${s.decimals_qty} decimales`;
     function exportProjectJSON() {
         const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
         const dl = document.createElement('a'); 
-        dl.href = s; 
-        dl.download = `Proy_Save_${new Date().toISOString().slice(0,10)}.json`; 
+        dl.href = s;
+
+        const ahora = new Date();
+        const dia = String(ahora.getDate()).padStart(2, '0');
+        const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+        const año = ahora.getFullYear();
+        dl.download = `Proy_Save_${dia}${mes}${año}.json`;
+
         dl.click();
         showToast('Proyecto guardado');
     }
@@ -4497,7 +4503,13 @@ Cantidades: ${s.decimals_qty} decimales`;
         const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(budgetData));
         const dl = document.createElement('a'); 
         dl.href = s; 
-        dl.download = `PG_${new Date().toISOString().slice(0,10)}.json`; 
+        
+        const ahora = new Date();
+        const dia = String(ahora.getDate()).padStart(2, '0');
+        const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+        const año = ahora.getFullYear();
+        dl.download = `PG_${dia}${mes}${año}.json`;
+
         dl.click();
         showToast('Presupuesto exportado (sin BD)');
     }
@@ -4545,8 +4557,14 @@ Cantidades: ${s.decimals_qty} decimales`;
     function exportBankJSON() {
         const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData.itemBank));
         const dl = document.createElement('a'); 
-        dl.href = s; 
-        dl.download = `banco_items_${new Date().toISOString().slice(0,10)}.json`; 
+        dl.href = s;
+
+        const ahora = new Date();
+        const dia = String(ahora.getDate()).padStart(2, '0');
+        const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+        const año = ahora.getFullYear();
+        dl.download = `BD_${dia}${mes}${año}.json`;
+
         dl.click();
         showToast('Banco exportado');
     }
@@ -5898,6 +5916,3 @@ function collectInsumosFromProjectGlobal(type) {
 <div id="pwa-toast"></div>
 </body>
 </html>
-
-
-
